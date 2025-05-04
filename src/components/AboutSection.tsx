@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { aboutData } from '@/data/about-data';
 import Image from 'next/image';
-import { BsGithub, BsLinkedin, BsTwitter } from 'react-icons/bs';
 
 export default function AboutSection() {
   const { scrollYProgress } = useScroll();
