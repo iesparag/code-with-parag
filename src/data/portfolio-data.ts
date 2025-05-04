@@ -2,8 +2,8 @@ export const personalInfo = {
   name: "Parag Jain",
   role: "Full Stack Developer",
   description: "Passionate developer crafting digital experiences with modern technologies. Specialized in building scalable web applications with cutting-edge tools.",
-  location: "New York, USA",
-  email: "contact@johndoe.com",
+  location: "Ahmedabad, India",
+  email: "iesparagjain@gmail.com",
 };
 
 export const skills = [
@@ -42,7 +42,7 @@ export const projects = [
 ];
 
 export const socialLinks = {
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  twitter: "https://twitter.com",
+  github: "https://github.com/iesparag",
+  linkedin: "https://www.linkedin.com/in/iesparag/",
+  whatsapp: "https://api.whatsapp.com/send?phone=919770525851"
 };
