@@ -122,7 +122,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-background/80 px-6 lg:px-12">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-background/80 px-6 lg:px-12">
       <AnimatedBackground />
       <div 
         className="container mx-auto px-4 pt-32  relative z-10"

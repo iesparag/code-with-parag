@@ -17,7 +17,7 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "#home" },
     { name: "Experience", href: "#experience" },
     { name: "Skills", href: "#skills" },
     { name: "GitHub", href: "#github" },
