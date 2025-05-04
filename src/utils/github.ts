@@ -58,10 +58,15 @@ export interface GitHubStats {
 }
 
 export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
+  const headers = {
+    'Authorization': `bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+    'Content-Type': 'application/json',
+  };
+
   // User info and repos
   const [userResponse, reposResponse] = await Promise.all([
-    fetch(`${GITHUB_API_URL}/users/${username}`),
-    fetch(`${GITHUB_API_URL}/users/${username}/repos?per_page=100&sort=updated`)
+    fetch(`${GITHUB_API_URL}/users/${username}`, { headers }),
+    fetch(`${GITHUB_API_URL}/users/${username}/repos?per_page=100&sort=updated`, { headers })
   ]);
 
   const userData = await userResponse.json();
@@ -132,10 +137,7 @@ export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
 
   const response = await fetch('https://api.github.com/graphql', {
     method: 'POST',
-    headers: {
-      'Authorization': `bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({ query, variables: { username } }),
   });
 

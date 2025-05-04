@@ -26,8 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-900 transition-colors`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0B1120]`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
           <div className="min-h-screen flex flex-col">
             {children}
           </div>

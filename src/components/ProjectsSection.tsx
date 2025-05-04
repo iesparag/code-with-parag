@@ -15,7 +15,31 @@ export default function ProjectsSection() {
   }, []);
 
   return (
-    <section id="projects" className="pb-20 px-4 sm:px-8 md:px-16 lg:px-24 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="min-h-screen w-full relative px-4 sm:px-8 md:px-16 lg:px-24 pt-20 overflow-hidden">
+      {/* Animated particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-primary/30"
+            animate={{
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * 100 - 50],
+              scale: [1, 1.5, 1],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -24,10 +48,10 @@ export default function ProjectsSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
             Featured Projects
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-lg text-gray-400">
             Some of my recent work
           </p>
         </motion.div>
@@ -53,7 +77,7 @@ export default function ProjectsSection() {
                 y: -8,
                 transition: { duration: 0.3, ease: "easeOut" }
               }}
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
               <motion.div 
                 className="relative h-48 group overflow-hidden"
@@ -61,7 +85,7 @@ export default function ProjectsSection() {
                 transition={{ duration: 0.5, type: "spring", bounce: 0.2 }}
               >
                 {/* Project preview video or image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-blue-600/30 dark:from-purple-500/40 dark:to-blue-500/40 mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/40 to-blue-500/40 mix-blend-overlay" />
                 <motion.div 
                   className="absolute inset-0 w-full h-full"
                   initial={{ scale: 1.2, opacity: 0 }}
@@ -107,7 +131,7 @@ export default function ProjectsSection() {
                     
                     {/* Overlay gradient */}
                     <motion.div 
-                      className="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-blue-600/30 dark:from-purple-500/40 dark:to-blue-500/40 mix-blend-overlay"
+                      className="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-blue-600/30 mix-blend-overlay"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: index * 0.2 + 0.3 }}
@@ -134,7 +158,7 @@ export default function ProjectsSection() {
               </motion.div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
+                <p className="text-gray-400 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => (
                     <motion.span
@@ -142,7 +166,7 @@ export default function ProjectsSection() {
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                      className="px-3 py-1 bg-purple-100 dark:bg-purple-900/80 text-purple-600 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors duration-200"
+                      className="px-3 py-1 bg-purple-900/80 text-purple-300 rounded-full text-sm hover:bg-purple-800 transition-colors duration-200"
                     >
                       {tag}
                     </motion.span>
@@ -153,7 +177,7 @@ export default function ProjectsSection() {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-800/70 transition-colors duration-200"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-900/50 text-purple-300 hover:bg-purple-800/70 transition-colors duration-200"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -164,7 +188,7 @@ export default function ProjectsSection() {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800/70 transition-colors duration-200"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-900/50 text-blue-300 hover:bg-blue-800/70 transition-colors duration-200"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

@@ -5,7 +5,31 @@ import { personalInfo, socialLinks } from '@/data/portfolio-data';
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-20 bg-gray-100 dark:bg-gray-800">
+    <section id="contact" className="min-h-screen w-full relative px-4 sm:px-8 md:px-16 lg:px-24 pt-20 overflow-hidden">
+        {/* Animated particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 rounded-full bg-primary/30"
+              animate={{
+                x: [0, Math.random() * 100 - 50],
+                y: [0, Math.random() * 100 - 50],
+                scale: [1, 1.5, 1],
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: Math.random() * 3 + 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            />
+          ))}
+        </div>
       <div className="container px-4 mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
@@ -14,7 +38,7 @@ export default function ContactSection() {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-4xl font-bold mb-8">Get In Touch</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-12">
+          <p className="text-lg text-gray-400 mb-12">
             I&apos;m always open to new opportunities and interesting projects.
             Let&apos;s work together to bring your ideas to life!
           </p>

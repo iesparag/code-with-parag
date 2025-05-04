@@ -42,12 +42,12 @@ export default function ContributionGraph({ data }: ContributionGraphProps) {
 
   const getColor = (level: number) => {
     switch(level) {
-      case 0: return 'bg-gray-800 dark:bg-gray-800';
-      case 1: return 'bg-green-900 dark:bg-green-900';
-      case 2: return 'bg-green-700 dark:bg-green-700';
-      case 3: return 'bg-green-500 dark:bg-green-500';
-      case 4: return 'bg-green-300 dark:bg-green-300';
-      default: return 'bg-gray-800 dark:bg-gray-800';
+      case 0: return 'bg-gray-800';
+      case 1: return 'bg-green-900';
+      case 2: return 'bg-green-700';
+      case 3: return 'bg-green-500';
+      case 4: return 'bg-green-300';
+      default: return 'bg-gray-800';
     }
   };
 

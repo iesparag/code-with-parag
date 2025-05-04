@@ -29,7 +29,31 @@ export default function GitHubSection() {
   }
 
   return (
-    <section id="github" className="relative min-h-screen py-20 px-4 sm:px-8 md:px-16 lg:px-24 bg-gray-50 dark:bg-gray-900">
+    <section id="github" className="min-h-screen w-full relative px-4 sm:px-8 md:px-16 lg:px-24 pt-20 overflow-hidden">
+      {/* Animated particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-primary/30"
+            animate={{
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * 100 - 50],
+              scale: [1, 1.5, 1],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
       {/* Background animation similar to SkillsSection */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(30)].map((_, i) => (
@@ -67,10 +91,10 @@ export default function GitHubSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-4xl font-bold mb-4 text-white">
             GitHub Activity
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-lg text-gray-400">
             My open source contributions and statistics
           </p>
         </motion.div>
@@ -83,26 +107,26 @@ export default function GitHubSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg space-y-6"
+              className="lg:col-span-2 bg-gray-800 rounded-xl p-6 shadow-lg space-y-6"
             >
               <div className="flex justify-between items-center">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold text-white">
                   Contribution Stats
                 </h3>
                 <div className="flex gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalContributions}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Total</div>
+                    <div className="text-2xl font-bold text-white">{stats.totalContributions}</div>
+                    <div className="text-sm text-gray-400">Total</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-green-600">{stats.currentStreak}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Streak</div>
+                    <div className="text-sm text-gray-400">Streak</div>
                   </div>
                 </div>
               </div>
               
               {/* Contribution Graph */}
-              <div className="-mx-6 px-6 py-4 border-t border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+              <div className="-mx-6 px-6 py-4 border-t border-b border-gray-700 bg-gray-900">
                 <ContributionGraph data={stats.contributionGraph} />
               </div>
             </motion.div>
@@ -113,19 +137,19 @@ export default function GitHubSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
+              className="bg-gray-800 rounded-xl p-6 shadow-lg"
             >
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+              <h3 className="text-xl font-semibold mb-4 text-white">
                 Most Used Languages
               </h3>
               <div className="space-y-3">
                 {stats.languageStats.map((lang, index) => (
                   <div key={lang.name} className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">{lang.name}</span>
-                      <span className="text-gray-900 dark:text-white">{lang.percentage}%</span>
+                      <span className="text-gray-400">{lang.name}</span>
+                      <span className="text-white">{lang.percentage}%</span>
                     </div>
-                    <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${lang.percentage}%` }}
@@ -146,12 +170,12 @@ export default function GitHubSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="lg:col-span-3 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
+              className="lg:col-span-3 bg-gray-800 rounded-xl p-6 shadow-lg"
             >
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{stats.totalStars}</div>
-                  <div className="text-gray-600 dark:text-gray-400">Total Stars</div>
+                  <div className="text-3xl font-bold text-white mb-2">{stats.totalStars}</div>
+                  <div className="text-gray-400">Total Stars</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{stats.totalPRs}</div>
