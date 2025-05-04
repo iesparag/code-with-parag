@@ -1,15 +1,12 @@
 {
   "name": "portfolio-website",
   "version": "0.1.0",
-  "homepage": "https://iesparag.github.io/iesparag.github.io",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
