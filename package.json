@@ -1,15 +1,12 @@
 {
-  "name": "portfolio",
+  "name": "portfolio-website",
   "version": "0.1.0",
-  "homepage": "https://iesparag.github.io/iesparag.github.io",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
@@ -31,7 +28,6 @@
     "autoprefixer": "^10.4.14",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
-    "gh-pages": "^6.3.0",
     "postcss": "^8.4.14",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",

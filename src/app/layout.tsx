@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Parag Jain | Portfolio",
+  title: "John Doe | Portfolio",
   description: "Full Stack Developer specializing in modern web technologies",
   keywords: ["Full Stack Developer", "Web Development", "React", "Next.js", "TypeScript"],
 };
