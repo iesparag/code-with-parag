@@ -5,7 +5,7 @@ import { experienceData } from '@/data/experience-data';
 
 export default function ExperienceSection() {
   return (
-    <section className="min-h-screen w-full relative px-4 sm:px-8 md:px-16 lg:px-20 pt-20">
+    <section id="experience" className="min-h-screen w-full relative px-4 sm:px-8 md:px-16 lg:px-20 pt-20">
       {/* Animated particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (

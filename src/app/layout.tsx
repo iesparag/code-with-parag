@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe | Portfolio",
+  title: "Parag Jain | Portfolio",
   description: "Full Stack Developer specializing in modern web technologies",
-  keywords: ["Full Stack Developer", "Web Development", "React", "Next.js", "TypeScript"],
+  keywords: ["Full Stack Developer", "Web Development", "React", "Angular", "Next.js", "TypeScript", "Node.js", "MongoDB", "Django", "Python", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Framer Motion", "Git", "Docker", "AWS", "Vercel", "Linux", "VS Code", "Figma", "Postman", "CI/CD", "Testing", "Agile", "UI/UX Design", "Performance Optimization", "SEO", "Responsive Design", "Web Security"],
 };
 
 export default function RootLayout({

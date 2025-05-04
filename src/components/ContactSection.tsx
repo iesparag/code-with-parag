@@ -5,7 +5,7 @@ import { personalInfo, socialLinks } from '@/data/portfolio-data';
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="min-h-screen w-full relative px-4 sm:px-8 md:px-16 lg:px-24 pt-20 overflow-hidden">
+    <section id="contact" className="w-full relative px-4 sm:px-8 md:px-16 lg:px-24 py-20 overflow-hidden">
         {/* Animated particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
@@ -30,15 +30,15 @@ export default function ContactSection() {
             />
           ))}
         </div>
-      <div className="container px-4 mx-auto">
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-3xl mx-auto text-center mb-8"
         >
-          <h2 className="text-4xl font-bold mb-8">Get In Touch</h2>
-          <p className="text-lg text-gray-400 mb-12">
+          <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
+          <p className="text-lg text-gray-400 mb-8">
             I&apos;m always open to new opportunities and interesting projects.
             Let&apos;s work together to bring your ideas to life!
           </p>
@@ -47,16 +47,16 @@ export default function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 mb-8"
           >
             <a
               href={`mailto:${personalInfo.email}`}
-              className="inline-block bg-purple-600 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-purple-700 transition-colors duration-300"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-lg font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors duration-300"
             >
               Send me an email
             </a>
             
-            <div className="flex justify-center gap-6 mt-8">
+            <div className="flex justify-center gap-6 mt-4">
               <motion.a
                 href={socialLinks.github}
                 target="_blank"

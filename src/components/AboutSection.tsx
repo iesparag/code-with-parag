@@ -66,46 +66,40 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <motion.div className="relative group cursor-pointer">
+            <motion.div className="relative">
               {/* Profile Image Container */}
-              <motion.div className="relative z-10 aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 p-1">
-                <motion.div className="w-full h-full rounded-2xl overflow-hidden relative bg-background/80 backdrop-blur-sm">
-                  {aboutData.avatar ? (
-                    <motion.div
-                      className="relative w-full h-full"
-                      initial={{ scale: 1.2, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <Image
-                        src={aboutData.avatar}
-                        alt={aboutData.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority
-                      />
-                    </motion.div>
-                  ) : (
-                    <motion.div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-8xl font-bold bg-gradient-to-r from-primary/40 to-primary/20 bg-clip-text text-transparent">
-                        {aboutData.initials}
-                      </span>
-                    </motion.div>
-                  )}
+              <div className="max-w-[280px] sm:max-w-[320px] md:max-w-[480px] mx-auto lg:mx-0">
+                <motion.div className="relative z-10 aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 p-1">
+                  <motion.div className="w-full h-full rounded-2xl overflow-hidden relative bg-background/80 backdrop-blur-sm">
+                    {aboutData.avatar ? (
+                      <motion.div
+                        className="relative w-full h-full"
+                        initial={{ scale: 1.2, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Image
+                          src={aboutData.avatar}
+                          alt={aboutData.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 280px, (max-width: 1024px) 320px, 380px"
+                          priority
+                        />
+                      </motion.div>
+                    ) : (
+                      <motion.div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-8xl font-bold bg-gradient-to-r from-primary/40 to-primary/20 bg-clip-text text-transparent">
+                          {aboutData.initials}
+                        </span>
+                      </motion.div>
+                    )}
+                  </motion.div>
                 </motion.div>
-                <motion.div 
-                  className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-2xl blur"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.3 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.div>
+              </div>
 
               {/* Social Links */}
-              <div className="absolute bottom-4 right-4 flex gap-3">
+              {/* <div className="absolute bottom-4 right-4 flex gap-3">
                 {aboutData.social.map((item) => {
                   const Icon = item.platform === 'GitHub' ? BsGithub :
                              item.platform === 'LinkedIn' ? BsLinkedin :
@@ -124,7 +118,7 @@ export default function AboutSection() {
                     </motion.a>
                   );
                 })}
-              </div>
+              </div> */}
             </motion.div>
 
             {/* Stats */}
