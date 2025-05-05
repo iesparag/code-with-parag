@@ -40,7 +40,7 @@ export default function Navigation() {
               className="group relative flex flex-col leading-none py-1 px-2 rounded-lg transition-colors hover:bg-accent/10"
               whileHover={{
                 scale: 1.02,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.2 },
               }}
               whileTap={{ scale: 0.98 }}
             >
@@ -77,7 +77,6 @@ export default function Navigation() {
             {/* Theme Toggle */}
             {/* <ThemeToggle /> */}
           </div>
-
           {/* Mobile Controls */}
           <div className="flex md:hidden items-center gap-4">
             {/* <ThemeToggle /> */}
@@ -105,7 +104,7 @@ export default function Navigation() {
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
+        <div>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
@@ -159,7 +158,7 @@ export default function Navigation() {
               </motion.div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </div>
       </div>
     </motion.nav>
   );
