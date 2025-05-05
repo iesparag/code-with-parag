@@ -20,31 +20,7 @@ const SkillCube = ({ skill }: { skill: string }) => {
 export default function SkillsSection() {
   return (
     <section id="skills" className="relative min-h-screen pt-20 px-4 sm:px-8 md:px-16 lg:px-24 overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Animated particles */}
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 rounded-full bg-primary/30"
-              animate={{
-                x: [0, Math.random() * 100 - 50],
-                y: [0, Math.random() * 100 - 50],
-                scale: [1, 1.5, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-            />
-          ))}
-        </div>
+
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -90,11 +66,11 @@ export default function SkillsSection() {
                   >
                     {category.title}
                   </motion.h3>
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 sm:gap-6">
+                  <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-10">
                     {category.skills.map((skill, index) => (
                       <motion.div
                         key={skill}
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.6 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ 
                           duration: 0.3,
@@ -138,7 +114,7 @@ export default function SkillsSection() {
                   >
                     {category.title}
                   </motion.h3>
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 sm:gap-6">
+                  <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                     {category.skills.map((skill, index) => (
                       <motion.div
                         key={skill}

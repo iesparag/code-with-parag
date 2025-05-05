@@ -1,23 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { X, Menu } from "./icons";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Removed scroll handling as it's not being used
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "#" },
     { name: "Experience", href: "#experience" },
     { name: "Skills", href: "#skills" },
     { name: "GitHub", href: "#github" },

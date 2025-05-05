@@ -54,7 +54,6 @@ export const skillsData: SkillsData = {
       "Testing",
       "Agile",
       "UI/UX Design",
-      "Performance Optimization",
       "SEO",
       "Responsive Design",
       "Web Security",

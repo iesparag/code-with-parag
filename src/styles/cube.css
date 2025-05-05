@@ -94,3 +94,38 @@
   border-color: rgba(99, 102, 241, 0.3);
   transform: translateY(-2px);
 }
+
+
+
+@media (max-width: 1024px) {
+  .cube-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cube-face {
+    font-size: 0.7rem;
+  }
+
+  .front,
+  .back,
+  .left,
+  .right {
+    transform: translateZ(30px);
+  }
+
+  .back {
+    transform: rotateY(180deg) translateZ(30px);
+  }
+
+  .right {
+    transform: rotateY(90deg) translateZ(30px);
+  }
+
+  .left {
+    transform: rotateY(-90deg) translateZ(30px);
+  }
+}
+
+
+

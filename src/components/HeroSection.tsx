@@ -3,96 +3,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 
-const AnimatedBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden -z-10">
-      {/* Animated gradient orbs */}
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-3xl"
-        animate={{
-          x: ["-25%", "25%"],
-          y: ["-25%", "25%"],
-          scale: [1, 1.2, 1],
-          rotate: [0, 180]
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-        style={{ top: "10%", left: "20%" }}
-      />
-      <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-25 blur-3xl"
-        animate={{
-          x: ["25%", "-25%"],
-          y: ["25%", "-15%"],
-          scale: [1.2, 1, 1.2],
-          rotate: [180, 0]
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-        style={{ top: "50%", right: "25%" }}
-      />
-      <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 opacity-20 blur-3xl"
-        animate={{
-          x: ["-15%", "15%"],
-          y: ["-10%", "20%"],
-          scale: [1, 1.3, 1],
-          rotate: [-90, 90]
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-        style={{ top: "30%", left: "50%" }}
-      />
-      {/* Grid pattern */}
-      <motion.div 
-        className="absolute inset-0" 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }}
-      />
-      {/* Additional animated particles */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full"
-            initial={{
-              x: Math.random() * 100 + "%",
-              y: Math.random() * 100 + "%",
-              opacity: Math.random() * 0.5 + 0.3
-            }}
-            animate={{
-              y: ["-20%", "120%"],
-              opacity: [0, 1, 0]
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 5
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
 export default function HeroSection() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -122,8 +32,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-background/80 px-6 lg:px-12">
-      <AnimatedBackground />
+    <section  className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-background/80 px-6 lg:px-12">
       <div 
         className="container mx-auto px-4 pt-32  relative z-10"
         onMouseMove={handleMouseMove}
