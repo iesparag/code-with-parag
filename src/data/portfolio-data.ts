@@ -16,12 +16,12 @@ export const skills = [
 
 export const projects = [
   {
-    title: "E-commerce Platform",
-    description: "A modern e-commerce platform built with Next.js and Stripe",
-    video: "/videos/e-commerce-platform.mp4",
-    tags: ["Next.js", "TypeScript", "Stripe", "Tailwind"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: "KFC Clone",
+    description: "A fully responsive KFC website clone with modern UI/UX design",
+    video: "/videos/kfc_video.mp4",
+    tags: ["React.js", "TypeScript", "CSS"],
+    github: "https://github.com/iesparag/KFC-CLONE",
+    demo: "https://kfc-clone-by-iesparag.vercel.app",
   },
   {
     title: "AI Chat Application",
@@ -32,12 +32,12 @@ export const projects = [
     demo: "https://demo.com",
   },
   {
-    title: "Task Management System",
-    description: "Collaborative task management tool for teams",
-    video: "/videos/task-management.mp4",
+    title: "TechWorld",
+    description: "A comprehensive electronics product review and e-commerce platform helping users make informed purchase decisions",
+    video: "/videos/tech_world.mp4",
     tags: ["React", "Redux", "MongoDB", "Express"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    github: "https://github.com/iesparag/TechWorld",
+    demo: "https://techworld-tau.vercel.app",
   },
 ];
 
