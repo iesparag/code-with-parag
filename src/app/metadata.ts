@@ -18,6 +18,6 @@ export const metadata: Metadata = {
     maximumScale: 1,
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/logo.svg',
   },
 };
