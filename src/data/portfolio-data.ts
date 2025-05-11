@@ -27,9 +27,9 @@ export const projects = [
     title: "AI Chat Application",
     description: "Real-time chat application with AI-powered responses",
     video: "/videos/ai-chat-application.mp4",
-    tags: ["React", "Socket.io", "OpenAI", "Node.js"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    tags: ["Angular", "Socket.io", "OpenAI", "Node.js"],
+    github: "https://github.com/iesparag/ai_chat_application",
+    demo: "https://ies-parag-gpt.netlify.app/",
   },
   {
     title: "TechWorld",
