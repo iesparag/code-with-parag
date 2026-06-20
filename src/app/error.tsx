@@ -4,10 +4,20 @@ import { motion } from 'framer-motion';
 
 export default function Error({
   reset,
+  error,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  // Focus management for accessibility
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (errorRef.current) {
+      errorRef.current.focus();
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
       {/* Animated background elements */}
@@ -39,20 +49,18 @@ export default function Error({
       </div>
 
       <motion.div
+        ref={errorRef}
+        tabIndex={-1}
         className="relative text-center z-10 bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl backdrop-blur-lg"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
+        aria-live="assertive"
+        role="alert"
       >
         <motion.div
-          animate={{
-            rotate: [0, 10, -10, 10, 0],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            repeatDelay: 1,
-          }}
+          animate={{ rotate: [0, 10, -10, 10, 0] }}
+          transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
           className="text-6xl mb-6"
         >
           ⚠️
@@ -62,6 +70,7 @@ export default function Error({
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
+          aria-label="Error message"
         >
           Oops! Something went wrong
         </motion.h2>
