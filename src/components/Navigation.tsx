@@ -1,157 +1,152 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { X, Menu } from "./icons";
+
+const navItems = [
+  { name: "Home", href: "#home", id: "home" },
+  { name: "About", href: "#about", id: "about" },
+  { name: "Experience", href: "#experience", id: "experience" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "GitHub", href: "#github", id: "github" },
+  { name: "Projects", href: "#projects", id: "projects" },
+  { name: "Contact", href: "#contact", id: "contact" },
+];
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("home");
 
+  // shrink / frost nav on scroll
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-
-  const navItems = [
-    { name: "Home", href: "#" },
-    { name: "Experience", href: "#experience" },
-    { name: "Skills", href: "#skills" },
-    { name: "GitHub", href: "#github" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
+  // scroll-spy: highlight the section currently in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    navItems.forEach((i) => {
+      const el = document.getElementById(i.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-[hsl(var(--border))]"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled || isMobileMenuOpen
+          ? "bg-[#0B1120]/90 backdrop-blur-xl border-b border-violet-500/15 shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="relative">
-            <motion.a
-              href="/"
-              className="group relative flex flex-col leading-none py-1 px-2 rounded-lg transition-colors hover:bg-accent/10"
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.2 },
-              }}
-              whileTap={{ scale: 0.98 }}
+          <motion.a
+            href="#home"
+            className="group relative flex flex-col leading-none py-1 px-2 rounded-lg"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 tracking-tight">
+              Parag Jain
+            </span>
+            <span className="text-[0.7rem] font-medium text-violet-300/70 tracking-[0.2em] uppercase">
+              Developer Portfolio
+            </span>
+          </motion.a>
+
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={`relative px-3 py-2 text-sm rounded-lg transition-colors ${
+                  active === item.id ? "text-white" : "text-gray-400 hover:text-violet-200"
+                }`}
+              >
+                {active === item.id && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 rounded-lg bg-violet-500/15 border border-violet-400/30"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative">{item.name}</span>
+              </a>
+            ))}
+            <a
+              href="#contact"
+              className="ml-3 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)] transition-shadow"
             >
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 tracking-tight">
-                Parag Jain
-              </span>
-              <span className="text-[0.8rem] font-medium text-muted-foreground/90 tracking-wide uppercase">
-                Developer Portfolio
-              </span>
-              <motion.div
-                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary/20 to-primary/10 opacity-0 group-hover:opacity-100 -z-10"
-                initial={false}
-                transition={{ duration: 0.2 }}
-              />
-            </motion.a>
+              Hire Me
+            </a>
           </div>
 
-          {/* Desktop Navigation and Theme Toggle */}
-          <div className="hidden md:flex items-center gap-8">
-            {/* Navigation Links */}
-            <div className="flex items-center gap-6">
-              {navItems.map((item) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
-            {/* Theme Toggle */}
-            {/* <ThemeToggle /> */}
-          </div>
-          {/* Mobile Controls */}
+          {/* Mobile toggle */}
           <div className="flex md:hidden items-center gap-4">
-            {/* <ThemeToggle /> */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-foreground p-2 hover:bg-secondary/80 rounded-lg"
+              className="text-white p-2 hover:bg-violet-500/10 rounded-lg"
               aria-label="Toggle Menu"
             >
-              <motion.div
-                animate={isMobileMenuOpen ? "open" : "closed"}
-                variants={{
-                  open: { rotate: 180 },
-                  closed: { rotate: 0 },
-                }}
-                transition={{ duration: 0.2 }}
-              >
-                {isMobileMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </motion.div>
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <div>
+        {/* Mobile menu */}
+        <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{
-                height: { duration: 0.4, ease: [0.33, 1, 0.68, 1] },
-                opacity: { duration: 0.2, ease: "linear" },
-              }}
-              className="overflow-hidden md:hidden border-t border-[hsl(var(--border))]"
+              transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+              className="overflow-hidden md:hidden -mx-4"
             >
-              <motion.div
-                className="flex flex-col py-6 px-4 bg-background"
-                initial="closed"
-                animate="open"
-                variants={{
-                  open: {
-                    transition: { staggerChildren: 0.07, delayChildren: 0.1 },
-                  },
-                  closed: {
-                    transition: { staggerChildren: 0.05, staggerDirection: -1 },
-                  },
-                }}
-              >
+              <div className="flex flex-col py-4 gap-1 px-4 bg-[#0B1120]/95 backdrop-blur-xl border-t border-violet-500/10">
                 {navItems.map((item) => (
-                  <motion.a
+                  <a
                     key={item.name}
                     href={item.href}
-                    className="text-lg font-medium text-foreground hover:text-primary transition-all px-4 py-3 -mx-4 hover:bg-secondary/80 rounded-lg"
-                    variants={{
-                      open: {
-                        y: 0,
-                        opacity: 1,
-                        transition: {
-                          y: { type: "spring", stiffness: 300, damping: 30 },
-                        },
-                      },
-                      closed: {
-                        y: 20,
-                        opacity: 0,
-                        transition: {
-                          y: { type: "spring", stiffness: 300 },
-                        },
-                      },
-                    }}
                     onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-base font-medium px-4 py-3 rounded-lg transition-colors ${
+                      active === item.id
+                        ? "text-white bg-violet-500/15"
+                        : "text-gray-300 hover:bg-violet-500/10"
+                    }`}
                   >
                     {item.name}
-                  </motion.a>
+                  </a>
                 ))}
-              </motion.div>
+                <a
+                  href="#contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-2 text-center px-4 py-3 font-medium text-white rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600"
+                >
+                  Hire Me
+                </a>
+              </div>
             </motion.div>
           )}
-        </div>
+        </AnimatePresence>
       </div>
     </motion.nav>
   );

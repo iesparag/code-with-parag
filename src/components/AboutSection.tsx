@@ -1,185 +1,142 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { aboutData } from '@/data/about-data';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { aboutData } from '@/data/about-data';
+import SectionBg from './SectionBg';
 
-export default function AboutSection() {
-  const { scrollYProgress } = useScroll();
-  useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+/** Animate the numeric part of a stat string like "2.5+" or "10+". */
+function StatValue({ value, inView }: { value: string; inView: boolean }) {
+  const match = value.match(/([\d.]+)(.*)/);
+  const target = match ? parseFloat(match[1]) : 0;
+  const suffix = match ? match[2] : '';
+  const decimals = match && match[1].includes('.') ? 1 : 0;
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    let raf = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / 1100, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(eased * target);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, target]);
 
   return (
-    <section className="pt-16 w-full relative overflow-hidden bg-gradient-to-b from-background to-background/50">
-      <motion.div className="container max-w-5xl mx-auto px-4 relative z-10">
+    <>
+      {n.toFixed(decimals)}
+      {suffix}
+    </>
+  );
+}
+
+const card =
+  'rounded-2xl border border-violet-500/20 bg-[rgba(17,24,39,0.5)] backdrop-blur-md shadow-[0_8px_40px_rgba(99,102,241,0.12)]';
+
+export default function AboutSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+
+  return (
+    <section id="about" className="pt-24 pb-12 w-full relative overflow-hidden">
+      <SectionBg variant="dots" />
+      <div className="container max-w-6xl mx-auto px-4 relative z-10" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-6xl font-bold inline-block bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold inline-block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
             About Me
           </h2>
-          <motion.div 
-            className="w-24 h-1 bg-gradient-to-r from-primary to-primary/50 mx-auto mt-4 rounded-full"
+          <motion.div
+            className="h-1 bg-gradient-to-r from-violet-500 to-cyan-400 mx-auto mt-4 rounded-full"
             initial={{ width: 0 }}
             whileInView={{ width: 96 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
           />
         </motion.div>
 
-        <motion.div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left side - Profile & Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Profile image (tall) */}
           <motion.div
-            className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`${card} lg:row-span-2 overflow-hidden group relative`}
           >
-            <motion.div className="relative">
-              {/* Profile Image Container */}
-              <div className="max-w-[280px] sm:max-w-[320px] md:max-w-[480px] mx-auto lg:mx-0">
-                <motion.div className="relative z-10 aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 p-1">
-                  <motion.div className="w-full h-full rounded-2xl overflow-hidden relative bg-background/80 backdrop-blur-sm">
-                    {aboutData.avatar ? (
-                      <motion.div
-                        className="relative w-full h-full"
-                        initial={{ scale: 1.2, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <Image
-                          src={aboutData.avatar}
-                          alt={aboutData.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 280px, (max-width: 1024px) 320px, 380px"
-                          priority
-                        />
-                      </motion.div>
-                    ) : (
-                      <motion.div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-8xl font-bold bg-gradient-to-r from-primary/40 to-primary/20 bg-clip-text text-transparent">
-                          {aboutData.initials}
-                        </span>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                </motion.div>
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src={aboutData.avatar}
+                alt={aboutData.name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 380px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <h3 className="text-2xl font-bold text-white">{aboutData.name}</h3>
+                <p className="text-violet-300">{aboutData.role}</p>
+                <p className="text-sm text-gray-400 mt-1">📍 {aboutData.location}</p>
               </div>
-
-              {/* Social Links */}
-              {/* <div className="absolute bottom-4 right-4 flex gap-3">
-                {aboutData.social.map((item) => {
-                  const Icon = item.platform === 'GitHub' ? BsGithub :
-                             item.platform === 'LinkedIn' ? BsLinkedin :
-                             BsTwitter;
-                  return (
-                    <motion.a
-                      key={item.platform}
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-full bg-card/50 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </motion.a>
-                  );
-                })}
-              </div> */}
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8">
-              {aboutData.stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-card/30 backdrop-blur-sm rounded-xl p-4 border border-primary/10 hover:border-primary/20 transition-all"
-                >
-                  <motion.div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
-                  <motion.div className="relative">
-                    <motion.div
-                      className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3"
-                      whileHover={{ scale: 1.1, backgroundColor: 'rgba(var(--primary), 0.2)' }}
-                    >
-                      <span className="text-xl font-bold text-primary">{stat.value}</span>
-                    </motion.div>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </motion.div>
+            </div>
           </motion.div>
 
-          {/* Right side - About Text */}
+          {/* Bio */}
           <motion.div
-            className="lg:col-span-7 space-y-6"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className={`${card} lg:col-span-2 p-7`}
           >
-            <motion.div className="relative bg-card/30 backdrop-blur-sm rounded-2xl p-8 border border-primary/10 overflow-hidden group">
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent rounded-2xl"
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 0.5, x: 0 }}
-                transition={{ duration: 0.8 }}
-              />
-              <motion.div 
-                className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 blur transition-opacity rounded-2xl"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-              />
-              <motion.div className="relative space-y-6">
-                {aboutData.description.split('. ').map((sentence, index) => (
-                  <motion.p
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="text-lg text-muted-foreground leading-relaxed"
-                  >
-                    {sentence.trim()}.
-                  </motion.p>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Skills */}
-            <motion.div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8">
-              {aboutData.skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-card/30 backdrop-blur-sm rounded-xl p-6 border border-primary/10 hover:border-primary/20 transition-all"
+            <p className="text-sm font-mono text-cyan-300/80 mb-3">// who am I</p>
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+              {aboutData.description}
+            </p>
+            <div className="flex flex-wrap gap-2 mt-5">
+              {aboutData.highlights.map((h) => (
+                <span
+                  key={h}
+                  className="px-3 py-1.5 text-sm rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-200"
                 >
-                  <motion.div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
-                  <motion.div className="relative">
-                    <h3 className="text-lg font-semibold mb-2 bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">
-                      {skill.name}
-                    </h3>
-                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-primary"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: index * 0.1 }}
-                      />
-                    </div>
-                  </motion.div>
-                </motion.div>
+                  {h}
+                </span>
               ))}
-            </motion.div>
+            </div>
           </motion.div>
-        </motion.div>
-      </motion.div>
+
+          {/* Stats */}
+          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {aboutData.stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className={`${card} p-5 text-center`}
+              >
+                <div className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent tabular-nums">
+                  <StatValue value={stat.value} inView={inView} />
+                </div>
+                <div className="text-xs text-gray-400 mt-1">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
