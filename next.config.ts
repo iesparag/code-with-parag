@@ -1,8 +1,14 @@
-const nextConfig = {
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['vercel.com', 'example.com', 'another-example.com'], // Add any other domains you need for images
-  }
+    domains: [
+      'vercel.com',
+      'example.com',
+      'another-example.com',
+    ],
+  },
 };
 
 export default nextConfig;
