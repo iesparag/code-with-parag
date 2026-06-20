@@ -4,9 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      'vercel.com',
-      'example.com',
-      'another-example.com',
+      'vercel.com'
     ],
   },
 };
