@@ -42,8 +42,8 @@ export default function Error({
             transition={{
               duration: Math.random() * 5 + 5,
               repeat: Infinity,
+              repeatType: 'reverse',
               ease: 'easeInOut',
-              yoyo: true,
             }}
           />
         ))}

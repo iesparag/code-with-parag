@@ -35,8 +35,8 @@ export default function GlobalError({
                 transition={{
                   duration: Math.random() * 10 + 10,
                   repeat: Infinity,
+                  repeatType: 'reverse',
                   ease: 'easeInOut',
-                  yoyo: true,
                 }}
               />
             ))}
