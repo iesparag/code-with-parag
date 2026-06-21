@@ -133,9 +133,9 @@ export default function ContactSection() {
           ))}
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-14">
+        {/* <p className="text-center text-sm text-gray-500 mt-14">
           © {new Date().getFullYear()} {personalInfo.name} · Built with Next.js, Three.js &amp; Framer Motion
-        </p>
+        </p> */}
       </div>
     </section>
   );
