@@ -21,25 +21,26 @@ export const aboutData = {
   title: "About Me",
   name: "Parag Jain",
   initials: "PJ",
-  role: "Full Stack Developer",
+  role: "GenAI Engineer & Full-Stack Developer",
   location: "India",
   avatar: "/AI-future-control-innovation.png", // Add your profile image to public/images/
   coverImage: "/images/cover.jpg", // Add a cover image
-  description: `I am a Full Stack MERN Developer with 2.5 years of experience in building user-focused web applications using JavaScript, React, Node.js, and MongoDB. I excel in both frontend and backend development, ensuring seamless and efficient solutions. My passion for innovation drives me to create exceptional web applications that meet user needs. I thrive in collaborative environments and am always eager to learn and adapt. Currently, I am seeking new opportunities to leverage my skills and grow within a dynamic team. Let's connect and collaborate to create outstanding web solutions!`,
-  
+  description: `I'm a GenAI engineer and full-stack developer with 4+ years of experience shipping production software. I build intelligent applications with LLMs — AI agents, RAG pipelines, and MCP tooling — using OpenAI, Anthropic Claude, and Gemini (LangChain / LangGraph), all on a scalable Node.js foundation. I design event-driven microservices with Kafka, Redis, and MongoDB, and craft polished frontends in React and Angular. I love turning ambiguous ideas into reliable, real-world AI products.`,
+
   highlights: [
-    "Full Stack MERN Developer",
-    "2.5 Years Experience",
-    "Frontend & Backend Expert",
-    "Problem Solver",
-    "Team Player"
+    "GenAI & Agentic AI",
+    "RAG & LLM Apps",
+    "4+ Years Experience",
+    "Node.js Microservices",
+    "Full-Stack MERN / MEAN",
+    "Kafka · Redis · MongoDB"
   ],
 
   stats: [
-    { label: "Years Experience", value: "2.5+" },
-    { label: "Projects Completed", value: "8+" },
-    { label: "Technologies", value: "10+" },
-    { label: "Satisfied Clients", value: "10+" }
+    { label: "Years Experience", value: "4+" },
+    { label: "Projects Shipped", value: "12+" },
+    { label: "Technologies", value: "20+" },
+    { label: "AI Providers", value: "3+" }
   ],
 
   skills: [

@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { FaFileDownload } from "react-icons/fa";
 import { X, Menu } from "./icons";
+import { resumeUrl } from "@/data/portfolio-data";
 
 const navItems = [
   { name: "Home", href: "#home", id: "home" },
@@ -92,8 +94,16 @@ export default function Navigation() {
               </a>
             ))}
             <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-3 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-violet-200 rounded-lg border border-violet-400/40 bg-violet-500/10 hover:bg-violet-500/20 hover:text-white transition-colors"
+            >
+              <FaFileDownload className="text-xs" /> Resume
+            </a>
+            <a
               href="#contact"
-              className="ml-3 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)] transition-shadow"
+              className="ml-2 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_6px_28px_rgba(124,58,237,0.6)] transition-shadow"
             >
               Hire Me
             </a>
@@ -136,6 +146,15 @@ export default function Navigation() {
                     {item.name}
                   </a>
                 ))}
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-2 inline-flex items-center justify-center gap-2 text-center px-4 py-3 font-medium text-violet-200 rounded-lg border border-violet-400/40 bg-violet-500/10 hover:bg-violet-500/20"
+                >
+                  <FaFileDownload className="text-sm" /> Resume
+                </a>
                 <a
                   href="#contact"
                   onClick={() => setIsMobileMenuOpen(false)}

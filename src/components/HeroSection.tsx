@@ -10,10 +10,10 @@ import { personalInfo, socialLinks } from '@/data/portfolio-data';
 const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false });
 
 const ROLES = [
-  'Full Stack MERN Developer',
-  'GenAI & Agentic AI Explorer',
-  'Python Developer',
-  'Turning Ideas into Products',
+  'GenAI & Agentic AI Engineer',
+  'LLM Apps · RAG · AI Agents',
+  'Full-Stack MERN / MEAN Developer',
+  'Turning Ideas into AI Products',
 ];
 
 /** Lightweight typewriter that cycles through ROLES. */
@@ -130,8 +130,8 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-base md:text-lg text-gray-400 mb-8 max-w-xl mx-auto md:mx-0"
             >
-              I build scalable web apps with the <span className="text-violet-300">MERN stack &amp; Python</span>,
-              and craft intelligent experiences with <span className="text-cyan-300">GenAI, RAG &amp; AI Agents</span>.
+              I build intelligent products with <span className="text-cyan-300">LLMs — AI agents, RAG &amp; MCP tooling</span>,
+              on scalable <span className="text-violet-300">Node.js microservices &amp; the MERN/MEAN stack</span>.
             </motion.p>
 
             <motion.div

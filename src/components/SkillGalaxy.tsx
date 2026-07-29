@@ -7,10 +7,11 @@ import * as THREE from 'three';
 import { skillsData } from '@/data/skills-data';
 
 const CATEGORY_COLORS: Record<string, string> = {
+  ai: '#fbbf24', // amber — GenAI
   frontend: '#a78bfa', // violet
   backend: '#22d3ee', // cyan
   tools: '#f472b6', // pink
-  other: '#34d399', // emerald
+  other: '#34d399', // emerald (fallback)
 };
 
 type SkillNode = { skill: string; color: string; position: THREE.Vector3 };

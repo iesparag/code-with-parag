@@ -1,9 +1,23 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Portfolio - Parag Jain',
-  description: 'Personal portfolio website showcasing my projects and skills.',
-  keywords: ['portfolio', 'web development', 'full stack', 'software engineer', 'developer'],
+  title: 'Parag Jain — GenAI Engineer & Full-Stack Developer',
+  description:
+    'GenAI engineer & full-stack developer building production LLM apps — AI agents, RAG, and MCP tooling on scalable Node.js microservices (MERN/MEAN).',
+  keywords: [
+    'GenAI engineer',
+    'AI developer',
+    'LLM apps',
+    'RAG',
+    'AI agents',
+    'LangChain',
+    'LangGraph',
+    'MCP',
+    'full stack developer',
+    'Node.js',
+    'MERN',
+    'Parag Jain',
+  ],
   authors: [{ name: 'Parag Jain' }],
   creator: 'Parag Jain',
   publisher: 'Parag Jain',

@@ -32,14 +32,22 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
         </span>
 
         <div className="relative h-44 sm:h-48 overflow-hidden">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            src={project.video}
-            loop
-            muted
-            playsInline
-          />
+          {project.video ? (
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              src={project.video}
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <div className="w-full h-full grid place-items-center bg-gradient-to-br from-violet-600/40 via-fuchsia-600/25 to-cyan-500/25">
+              <span className="px-5 text-center text-lg sm:text-xl font-semibold text-white/90 leading-snug">
+                {project.title}
+              </span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent" />
         </div>
 

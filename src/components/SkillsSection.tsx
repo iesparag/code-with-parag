@@ -15,10 +15,10 @@ const SkillGalaxy = dynamic(() => import('./SkillGalaxy'), {
 });
 
 const CATEGORY_LEGEND: { key: string; color: string }[] = [
+  { key: 'ai', color: '#fbbf24' },
   { key: 'frontend', color: '#a78bfa' },
   { key: 'backend', color: '#22d3ee' },
   { key: 'tools', color: '#f472b6' },
-  { key: 'other', color: '#34d399' },
 ];
 
 export default function SkillsSection() {
