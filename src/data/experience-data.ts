@@ -33,6 +33,27 @@ export const experienceData = {
   ],
   education: [
     {
+      degree: "Full Stack Developer Bootcamp",
+      institution: "Masai School",
+      period: "July 2022 – Mar 2023",
+      location: "Bangalore",
+      achievements: [
+        "Intensive 8-month, full-time bootcamp in full-stack web development completed before starting my first developer role.",
+        "Built a strong foundation in Data Structures & Algorithms and problem-solving through daily coding practice.",
+        "Learned frontend and backend end-to-end — JavaScript, React, Node.js, Express, and MongoDB — through project-based, test-driven assignments."
+      ],
+      relevantCourses: [
+        "DSA",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "HTML/CSS",
+        "Problem Solving"
+      ]
+    },
+    {
       degree: "B-Tech in Civil Engineering",
       institution: "Samrat Ashok Technological Institute",
       period: "2015 - 2019",
