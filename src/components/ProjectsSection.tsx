@@ -10,8 +10,22 @@ import SpotlightCard from './SpotlightCard';
 
 type Project = (typeof projects)[number];
 
+// Each card gets its own accent instead of every card repeating the same
+// violet→fuchsia→cyan wash — keeps the carousel feeling distinct card to card.
+const ACCENTS = [
+  { from: '#a78bfa', to: '#22d3ee', ring: 'rgba(167,139,250,0.45)', chip: 'text-violet-300 bg-violet-500/10 border-violet-500/25', solid: 'from-violet-600 to-cyan-500' },
+  { from: '#22d3ee', to: '#34d399', ring: 'rgba(34,211,238,0.45)', chip: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/25', solid: 'from-cyan-500 to-emerald-500' },
+  { from: '#f472b6', to: '#a78bfa', ring: 'rgba(244,114,182,0.45)', chip: 'text-fuchsia-300 bg-fuchsia-500/10 border-fuchsia-500/25', solid: 'from-fuchsia-600 to-violet-600' },
+  { from: '#fbbf24', to: '#f472b6', ring: 'rgba(251,191,36,0.4)', chip: 'text-amber-300 bg-amber-500/10 border-amber-500/25', solid: 'from-amber-500 to-fuchsia-600' },
+];
+
+const TAG_LIMIT = 4;
+
 function CardFace({ project, active, index }: { project: Project; active: boolean; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const accent = ACCENTS[index % ACCENTS.length];
+  const shownTags = project.tags.slice(0, TAG_LIMIT);
+  const extraCount = project.tags.length - shownTags.length;
 
   useEffect(() => {
     const v = videoRef.current;
@@ -21,19 +35,22 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
   }, [active]);
 
   return (
-    <SpotlightCard className="rounded-2xl overflow-hidden border border-violet-500/25 bg-[rgba(17,24,39,0.75)] backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-      {/* gradient border glow when active */}
-      <div
-        className={`absolute -inset-px rounded-2xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 blur-[2px] transition-opacity duration-300 ${
-          active ? 'opacity-70' : 'opacity-0'
-        }`}
-      />
+    <SpotlightCard
+      className="rounded-2xl overflow-hidden border bg-[#0d1326] transition-colors duration-300"
+      style={{
+        borderColor: active ? accent.ring : 'rgba(124,58,237,0.18)',
+        boxShadow: active ? `0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px ${accent.ring}, 0 0 32px -8px ${accent.ring}` : '0 20px 60px rgba(0,0,0,0.5)',
+      }}
+    >
       <div className="relative rounded-2xl overflow-hidden">
-        <span className="absolute top-3 left-3 z-20 w-8 h-8 grid place-items-center rounded-lg bg-black/40 backdrop-blur text-violet-200 text-sm font-mono border border-violet-500/30">
+        <span
+          className="absolute top-3 left-3 z-20 w-8 h-8 grid place-items-center rounded-lg bg-black/50 backdrop-blur text-sm font-mono font-bold border"
+          style={{ color: accent.from, borderColor: accent.ring }}
+        >
           {String(index + 1).padStart(2, '0')}
         </span>
 
-        <div className="relative h-44 sm:h-48 overflow-hidden">
+        <div className="relative h-40 sm:h-44 overflow-hidden">
           {project.video ? (
             <video
               ref={videoRef}
@@ -44,28 +61,36 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
               playsInline
             />
           ) : (
-            <div className="w-full h-full grid place-items-center bg-gradient-to-br from-violet-600/40 via-fuchsia-600/25 to-cyan-500/25">
+            <div
+              className="w-full h-full grid place-items-center"
+              style={{ background: `linear-gradient(135deg, ${accent.from}33, ${accent.to}1a)` }}
+            >
               <span className="px-5 text-center text-lg sm:text-xl font-semibold text-white/90 leading-snug">
                 {project.title}
               </span>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1326] via-[#0d1326]/10 to-transparent" />
         </div>
 
         <div className="p-5 sm:p-6">
-          <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-          <p className="text-gray-400 text-sm mb-4 line-clamp-3">{project.description}</p>
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-snug">{project.title}</h3>
+          <p className="text-gray-400 text-sm mb-4 leading-relaxed line-clamp-2">{project.description}</p>
 
-          <div className="flex flex-wrap gap-2 mb-5">
-            {project.tags.map((tag) => (
+          <div className="flex flex-wrap gap-1.5 mb-5">
+            {shownTags.map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 text-xs rounded-full bg-violet-500/10 text-violet-300 border border-violet-500/20"
+                className={`px-2.5 py-1 text-xs rounded-full border ${accent.chip}`}
               >
                 {tag}
               </span>
             ))}
+            {extraCount > 0 && (
+              <span className="px-2.5 py-1 text-xs rounded-full border border-white/10 bg-white/5 text-gray-400">
+                +{extraCount} more
+              </span>
+            )}
           </div>
 
           <div className="flex gap-3">
@@ -83,7 +108,7 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
               target="_blank"
               rel="noopener noreferrer"
               tabIndex={active ? 0 : -1}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-90 transition-opacity"
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r ${accent.solid} hover:opacity-90 transition-opacity`}
             >
               <FaExternalLinkAlt className="text-xs" /> Live Demo
             </a>

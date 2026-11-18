@@ -9,9 +9,11 @@ import { useRef } from 'react';
 export default function SpotlightCard({
   children,
   className,
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -35,6 +37,7 @@ export default function SpotlightCard({
       ref={ref}
       onMouseMove={handleMove}
       className={`relative group/spotlight ${className ?? ''}`}
+      style={style}
     >
       <div
         className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover/spotlight:opacity-100 transition-opacity duration-300"
