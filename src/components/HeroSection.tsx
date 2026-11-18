@@ -131,19 +131,33 @@ export default function HeroSection() {
 
             <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 mb-4 leading-tight">
               <span className="sr-only">{personalInfo.name}</span>
-              <span aria-hidden className="inline-flex flex-wrap justify-center md:justify-start">
-                {personalInfo.name.split('').map((ch, i) => (
-                  <span key={i} className="inline-block overflow-hidden">
-                    <motion.span
-                      initial={{ y: '110%' }}
-                      animate={{ y: '0%' }}
-                      transition={{ duration: 0.7, delay: 0.15 + i * 0.035, ease: [0.22, 1, 0.36, 1] }}
-                      className="inline-block"
-                    >
-                      {ch === ' ' ? ' ' : ch}
-                    </motion.span>
-                  </span>
-                ))}
+              <span
+                aria-hidden
+                className="inline-flex flex-wrap justify-center md:justify-start gap-x-[0.22em]"
+              >
+                {(() => {
+                  let letterIndex = 0;
+                  return personalInfo.name.split(' ').map((word, wi) => (
+                    <span key={wi} className="inline-flex whitespace-nowrap">
+                      {word.split('').map((ch, i) => {
+                        const delay = 0.15 + letterIndex * 0.035;
+                        letterIndex += 1;
+                        return (
+                          <span key={i} className="inline-block overflow-hidden">
+                            <motion.span
+                              initial={{ y: '110%' }}
+                              animate={{ y: '0%' }}
+                              transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+                              className="inline-block"
+                            >
+                              {ch}
+                            </motion.span>
+                          </span>
+                        );
+                      })}
+                    </span>
+                  ));
+                })()}
               </span>
             </h1>
 

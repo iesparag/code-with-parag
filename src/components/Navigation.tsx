@@ -66,16 +66,16 @@ export default function Navigation() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 tracking-tight">
+            <span className="whitespace-nowrap text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 tracking-tight">
               Parag Jain
             </span>
-            <span className="text-[0.7rem] font-medium text-violet-300/70 tracking-[0.2em] uppercase">
+            <span className="whitespace-nowrap text-[0.7rem] font-medium text-violet-300/70 tracking-[0.2em] uppercase">
               Developer Portfolio
             </span>
           </motion.a>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -115,7 +115,7 @@ export default function Navigation() {
           </div>
 
           {/* Mobile toggle */}
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex lg:hidden items-center gap-4">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-white p-2 hover:bg-violet-500/10 rounded-lg"
@@ -134,7 +134,7 @@ export default function Navigation() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-              className="overflow-hidden md:hidden -mx-4"
+              className="overflow-hidden lg:hidden -mx-4"
             >
               <div className="flex flex-col py-4 gap-1 px-4 bg-[#0B1120]/95 backdrop-blur-xl border-t border-violet-500/10">
                 {navItems.map((item) => (
