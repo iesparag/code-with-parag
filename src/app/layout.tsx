@@ -6,6 +6,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import GrainOverlay from "@/components/GrainOverlay";
+import Preloader from "@/components/Preloader";
 import "./globals.css";
 
 const geistSans = Inter({
@@ -33,6 +34,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`}>
         <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+          <Preloader />
           <AuroraBackground />
           <GrainOverlay />
           <CustomCursor />

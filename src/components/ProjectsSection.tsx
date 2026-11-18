@@ -6,6 +6,7 @@ import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'reac
 import { projects } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
 import SplitHeading from './SplitHeading';
+import SpotlightCard from './SpotlightCard';
 
 type Project = (typeof projects)[number];
 
@@ -20,7 +21,7 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
   }, [active]);
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-violet-500/25 bg-[rgba(17,24,39,0.75)] backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+    <SpotlightCard className="rounded-2xl overflow-hidden border border-violet-500/25 bg-[rgba(17,24,39,0.75)] backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
       {/* gradient border glow when active */}
       <div
         className={`absolute -inset-px rounded-2xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 blur-[2px] transition-opacity duration-300 ${
@@ -89,7 +90,7 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
           </div>
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }
 

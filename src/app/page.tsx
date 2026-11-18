@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import MarqueeStrip from '@/components/MarqueeStrip';
 
 export const metadata = {
   title: 'Portfolio - Parag Jain',
@@ -42,6 +43,16 @@ export default function Home() {
     <main className="min-h-screen bg-transparent">
       <Navigation />
       <HeroSection />
+      <MarqueeStrip
+        items={[
+          'GenAI & Agentic AI',
+          'Node.js / MERN',
+          'RAG & LLM Tooling',
+          'MCP Servers',
+          'Full-Stack Engineering',
+          'Open for Freelance',
+        ]}
+      />
       <AboutSection />
       <ExperienceSection />
       <SkillsSection />

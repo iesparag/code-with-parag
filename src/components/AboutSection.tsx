@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { aboutData } from '@/data/about-data';
 import SectionBg from './SectionBg';
 import SplitHeading from './SplitHeading';
+import SpotlightCard from './SpotlightCard';
 
 /** Animate the numeric part of a stat string like "2.5+" or "10+". */
 function StatValue({ value, inView }: { value: string; inView: boolean }) {
@@ -100,22 +101,24 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`${card} lg:col-span-2 p-7`}
+            className="lg:col-span-2"
           >
-            <p className="text-sm font-mono text-cyan-300/80 mb-3">// who am I</p>
-            <p className="text-base md:text-lg text-gray-300 leading-relaxed">
-              {aboutData.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mt-5">
-              {aboutData.highlights.map((h) => (
-                <span
-                  key={h}
-                  className="px-3 py-1.5 text-sm rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-200"
-                >
-                  {h}
-                </span>
-              ))}
-            </div>
+            <SpotlightCard className={`${card} p-7`}>
+              <p className="text-sm font-mono text-cyan-300/80 mb-3">// who am I</p>
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                {aboutData.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-5">
+                {aboutData.highlights.map((h) => (
+                  <span
+                    key={h}
+                    className="px-3 py-1.5 text-sm rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-200"
+                  >
+                    {h}
+                  </span>
+                ))}
+              </div>
+            </SpotlightCard>
           </motion.div>
 
           {/* Stats */}
@@ -128,12 +131,13 @@ export default function AboutSection() {
                 whileHover={{ y: -5 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className={`${card} p-5 text-center`}
               >
-                <div className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent tabular-nums">
-                  <StatValue value={stat.value} inView={inView} />
-                </div>
-                <div className="text-xs text-gray-400 mt-1">{stat.label}</div>
+                <SpotlightCard className={`${card} p-5 text-center`}>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent tabular-nums">
+                    <StatValue value={stat.value} inView={inView} />
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1">{stat.label}</div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>

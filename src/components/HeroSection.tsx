@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaArrowDown } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '@/data/portfolio-data';
 import Magnetic from './Magnetic';
@@ -55,14 +55,34 @@ export default function HeroSection() {
   const rotateX = useTransform(y, [-0.5, 0.5], ['7deg', '-7deg']);
   const rotateY = useTransform(x, [-0.5, 0.5], ['-7deg', '7deg']);
 
+  // Cache the rect on enter instead of reading layout on every mousemove,
+  // and only apply the latest pointer position once per animation frame.
+  const rectRef = useRef<DOMRect | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const pendingRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+  };
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const cx = rect.x + rect.width / 2;
-    const cy = rect.y + rect.height / 2;
-    mouseX.set((e.clientX - cx) / (rect.width / 2));
-    mouseY.set((e.clientY - cy) / (rect.height / 2));
+    pendingRef.current = { x: e.clientX, y: e.clientY };
+    if (rafRef.current != null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const rect = rectRef.current;
+      const pending = pendingRef.current;
+      if (!rect || !pending) return;
+      const cx = rect.x + rect.width / 2;
+      const cy = rect.y + rect.height / 2;
+      mouseX.set((pending.x - cx) / (rect.width / 2));
+      mouseY.set((pending.y - cy) / (rect.height / 2));
+    });
   };
   const handleMouseLeave = () => {
+    if (rafRef.current != null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     mouseX.set(0);
     mouseY.set(0);
   };
@@ -79,6 +99,7 @@ export default function HeroSection() {
 
       <div
         className="container mx-auto px-4 pt-32 relative z-10"
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
