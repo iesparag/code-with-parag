@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { skillsData } from '@/data/skills-data';
+import SplitHeading from './SplitHeading';
 
 // three.js canvas must be client-only (no SSR)
 const SkillGalaxy = dynamic(() => import('./SkillGalaxy'), {
@@ -35,9 +36,10 @@ export default function SkillsSection() {
           viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-8"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
-            Skills &amp; Technologies
-          </h2>
+          <SplitHeading
+            text="Skills & Technologies"
+            className="text-4xl font-bold mb-4 bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text"
+          />
           <p className="text-lg text-violet-300/80">
             An interactive galaxy of everything I build with — drag to explore 🌌
           </p>

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { projects } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
+import SplitHeading from './SplitHeading';
 
 type Project = (typeof projects)[number];
 
@@ -112,9 +113,10 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">
-            Featured Projects
-          </h2>
+          <SplitHeading
+            text="Featured Projects"
+            className="text-4xl md:text-5xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400"
+          />
           <p className="text-lg text-violet-300/80">Drag, swipe or use the arrows to explore ✨</p>
         </motion.div>
 

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { aboutData } from '@/data/about-data';
 import SectionBg from './SectionBg';
+import SplitHeading from './SplitHeading';
 
 /** Animate the numeric part of a stat string like "2.5+" or "10+". */
 function StatValue({ value, inView }: { value: string; inView: boolean }) {
@@ -54,9 +55,10 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold inline-block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-            About Me
-          </h2>
+          <SplitHeading
+            text="About Me"
+            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent"
+          />
           <motion.div
             className="h-1 bg-gradient-to-r from-violet-500 to-cyan-400 mx-auto mt-4 rounded-full"
             initial={{ width: 0 }}

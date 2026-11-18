@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaRegCopy, FaCheck } from 'react-icons/fa';
 import { socialLinks, personalInfo } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
+import SplitHeading from './SplitHeading';
 
 const card =
   'rounded-2xl border border-violet-500/20 bg-[rgba(17,24,39,0.5)] backdrop-blur-md shadow-[0_8px_40px_rgba(99,102,241,0.12)]';
@@ -64,9 +65,10 @@ export default function ContactSection() {
             </span>
             Available for new projects
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-            Let&apos;s build something amazing
-          </h2>
+          <SplitHeading
+            text="Let's build something amazing"
+            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent"
+          />
           <p className="text-lg text-gray-400 mt-4 max-w-xl mx-auto">
             Got an idea, a role, or a freelance project? I&apos;m just a message away.
           </p>

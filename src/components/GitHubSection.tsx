@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FaStar, FaCodeBranch, FaUsers, FaUserPlus } from 'react-icons/fa';
 import { socialLinks } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
+import SplitHeading from './SplitHeading';
 
 const GH_USER = 'iesparag';
 
@@ -95,9 +96,10 @@ export default function GitHubSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
-            GitHub Activity
-          </h2>
+          <SplitHeading
+            text="GitHub Activity"
+            className="text-4xl font-bold mb-4 bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text"
+          />
           <p className="text-lg text-violet-300/80">
             Live snapshot of my open-source contributions &amp; code 🚀
           </p>

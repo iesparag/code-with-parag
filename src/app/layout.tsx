@@ -3,6 +3,9 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import AuroraBackground from "@/components/AuroraBackground";
 import ScrollProgress from "@/components/ScrollProgress";
+import SmoothScroll from "@/components/SmoothScroll";
+import CustomCursor from "@/components/CustomCursor";
+import GrainOverlay from "@/components/GrainOverlay";
 import "./globals.css";
 
 const geistSans = Inter({
@@ -27,14 +30,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`}>
         <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
           <AuroraBackground />
+          <GrainOverlay />
+          <CustomCursor />
           <ScrollProgress />
-          <div className="min-h-screen flex flex-col">
-            {children}
-          </div>
+          <SmoothScroll>
+            <div className="min-h-screen flex flex-col">
+              {children}
+            </div>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

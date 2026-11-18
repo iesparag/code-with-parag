@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaArrowDown } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '@/data/portfolio-data';
+import Magnetic from './Magnetic';
 
 const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false });
 
@@ -107,14 +108,23 @@ export default function HeroSection() {
               👋 Hi, I&apos;m
             </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 mb-4 leading-tight"
-            >
-              {personalInfo.name}
-            </motion.h1>
+            <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 mb-4 leading-tight">
+              <span className="sr-only">{personalInfo.name}</span>
+              <span aria-hidden className="inline-flex flex-wrap justify-center md:justify-start">
+                {personalInfo.name.split('').map((ch, i) => (
+                  <span key={i} className="inline-block overflow-hidden">
+                    <motion.span
+                      initial={{ y: '110%' }}
+                      animate={{ y: '0%' }}
+                      transition={{ duration: 0.7, delay: 0.15 + i * 0.035, ease: [0.22, 1, 0.36, 1] }}
+                      className="inline-block"
+                    >
+                      {ch === ' ' ? ' ' : ch}
+                    </motion.span>
+                  </span>
+                ))}
+              </span>
+            </h1>
 
             {/* typewriter */}
             <div className="h-9 md:h-10 mb-6">
@@ -140,22 +150,26 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-wrap justify-center md:justify-start gap-4 items-center"
             >
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-7 py-3 rounded-xl font-medium text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 shadow-[0_8px_30px_rgba(124,58,237,0.4)] hover:shadow-[0_8px_40px_rgba(124,58,237,0.6)] transition-shadow"
-              >
-                View Projects
-              </motion.a>
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-7 py-3 rounded-xl font-medium text-violet-200 border border-violet-500/40 bg-violet-500/5 hover:bg-violet-500/15 transition-colors"
-              >
-                Contact Me
-              </motion.a>
+              <Magnetic>
+                <motion.a
+                  href="#projects"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block px-7 py-3 rounded-xl font-medium text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 shadow-[0_8px_30px_rgba(124,58,237,0.4)] hover:shadow-[0_8px_40px_rgba(124,58,237,0.6)] transition-shadow"
+                >
+                  View Projects
+                </motion.a>
+              </Magnetic>
+              <Magnetic>
+                <motion.a
+                  href="#contact"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block px-7 py-3 rounded-xl font-medium text-violet-200 border border-violet-500/40 bg-violet-500/5 hover:bg-violet-500/15 transition-colors"
+                >
+                  Contact Me
+                </motion.a>
+              </Magnetic>
 
               <div className="flex gap-3 ml-1">
                 {[
@@ -163,17 +177,18 @@ export default function HeroSection() {
                   { href: socialLinks.linkedin, icon: <FaLinkedin />, label: 'LinkedIn' },
                   { href: socialLinks.whatsapp, icon: <FaWhatsapp />, label: 'WhatsApp' },
                 ].map((s) => (
-                  <motion.a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    whileHover={{ scale: 1.15, y: -3 }}
-                    className="grid place-items-center w-11 h-11 rounded-xl border border-violet-500/30 bg-white/5 text-xl text-violet-200 hover:text-white hover:border-violet-400/60 transition-colors"
-                  >
-                    {s.icon}
-                  </motion.a>
+                  <Magnetic key={s.label} strength={0.45}>
+                    <motion.a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      whileHover={{ scale: 1.15, y: -3 }}
+                      className="grid place-items-center w-11 h-11 rounded-xl border border-violet-500/30 bg-white/5 text-xl text-violet-200 hover:text-white hover:border-violet-400/60 transition-colors"
+                    >
+                      {s.icon}
+                    </motion.a>
+                  </Magnetic>
                 ))}
               </div>
             </motion.div>

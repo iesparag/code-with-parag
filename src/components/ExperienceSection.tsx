@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import { experienceData } from '@/data/experience-data';
 import SectionBg from './SectionBg';
+import SplitHeading from './SplitHeading';
 
 type TimelineEntry = {
   kind: 'work' | 'edu';
@@ -56,9 +57,10 @@ export default function ExperienceSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-            Experience &amp; Education
-          </h2>
+          <SplitHeading
+            text="Experience & Education"
+            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent"
+          />
           <p className="text-violet-300/80 mt-3">My journey so far 🚀</p>
         </motion.div>
 
