@@ -1,12 +1,13 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaRocket } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { projects } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
 import SplitHeading from './SplitHeading';
 import SpotlightCard from './SpotlightCard';
+import ConfettiBurst from './ConfettiBurst';
 
 type Project = (typeof projects)[number];
 
@@ -122,12 +123,10 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
 export default function ProjectsSection() {
   const count = projects.length;
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [launchId, setLaunchId] = useState(0);
+  const [burstKey, setBurstKey] = useState(0);
 
   const go = (dir: number) => {
-    setDirection(dir);
-    setLaunchId((id) => id + 1);
+    setBurstKey((id) => id + 1);
     setCurrent((c) => (c + dir + count) % count);
   };
 
@@ -152,12 +151,8 @@ export default function ProjectsSection() {
           <p className="text-lg text-violet-300/80">Drag, swipe or use the arrows to explore ✨</p>
         </motion.div>
 
-        {/* Wraps the 3D stage + the rocket overlay. The rocket is kept OUTSIDE the
-            perspective div below: Chromium paints preserve-3d descendants in their
-            own compositing layer, which can sit above a 2D sibling regardless of
-            z-index — so the rocket needs to not share that 3D containing block. */}
-        <div className="relative">
-          <div className="relative" style={{ perspective: '1400px' }}>
+        {/* 3D coverflow stage */}
+        <div className="relative" style={{ perspective: '1400px' }}>
           <motion.div
             className="relative h-[460px] sm:h-[480px] flex items-center justify-center"
             style={{ transformStyle: 'preserve-3d' }}
@@ -213,53 +208,9 @@ export default function ProjectsSection() {
           >
             <FaChevronRight />
           </button>
-          </div>
 
-          {/* rocket-launch transition effect when switching projects. Deliberately a
-              sibling of the perspective div above, not a descendant — see the note
-              on the outer wrapper. Flight uses vw units (relative to the real
-              viewport); the outer <section> still clips the far edges. */}
-          <div className="pointer-events-none absolute inset-0 z-30">
-            <AnimatePresence>
-              {launchId > 0 && (
-                <motion.div
-                  key={launchId}
-                  data-rocket="true"
-                  // FaRocket's artwork already points up-and-right by default — for
-                  // forward travel (also up-and-right) it needs no rotation at all.
-                  // For reverse travel we mirror horizontally (not rotate), which
-                  // turns "up-right" into "up-left" and flips the trail along with it.
-                  className="absolute top-1/2 left-1/2"
-                  initial={{
-                    x: direction > 0 ? '-42vw' : '42vw',
-                    y: 40,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    x: direction > 0 ? '42vw' : '-42vw',
-                    y: -40,
-                    opacity: [0, 1, 1, 0],
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.65,
-                    ease: 'easeIn',
-                    opacity: { duration: 0.65, times: [0, 0.15, 0.8, 1] },
-                  }}
-                >
-                  <div className="relative" style={{ transform: direction < 0 ? 'scaleX(-1)' : undefined }}>
-                    {/* exhaust trail, fixed at the angle opposite the icon's default
-                        up-right-pointing nose (135deg clockwise from due east) */}
-                    <div
-                      className="absolute top-1/2 left-1/2 h-1 w-[70px] rounded-full bg-gradient-to-r from-cyan-300/80 to-transparent blur-[1px]"
-                      style={{ transformOrigin: 'left center', transform: 'translateY(-50%) rotate(135deg)' }}
-                    />
-                    <FaRocket className="relative text-3xl sm:text-4xl text-cyan-300 drop-shadow-[0_0_14px_rgba(34,211,238,0.85)]" />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          {/* little celebration pop each time you switch projects */}
+          <ConfettiBurst burstKey={burstKey} />
         </div>
 
         {/* dots */}
