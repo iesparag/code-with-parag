@@ -7,7 +7,6 @@ import { projects } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
 import SplitHeading from './SplitHeading';
 import SpotlightCard from './SpotlightCard';
-import ConfettiBurst from './ConfettiBurst';
 
 type Project = (typeof projects)[number];
 
@@ -123,12 +122,8 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
 export default function ProjectsSection() {
   const count = projects.length;
   const [current, setCurrent] = useState(0);
-  const [burstKey, setBurstKey] = useState(0);
 
-  const go = (dir: number) => {
-    setBurstKey((id) => id + 1);
-    setCurrent((c) => (c + dir + count) % count);
-  };
+  const go = (dir: number) => setCurrent((c) => (c + dir + count) % count);
 
   return (
     <section
@@ -208,9 +203,6 @@ export default function ProjectsSection() {
           >
             <FaChevronRight />
           </button>
-
-          {/* little celebration pop each time you switch projects */}
-          <ConfettiBurst burstKey={burstKey} />
         </div>
 
         {/* dots */}
