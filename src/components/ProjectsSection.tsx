@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaRocket } from 'react-icons/fa';
 import { projects } from '@/data/portfolio-data';
 import SectionBg from './SectionBg';
 import SplitHeading from './SplitHeading';
@@ -122,8 +122,14 @@ function CardFace({ project, active, index }: { project: Project; active: boolea
 export default function ProjectsSection() {
   const count = projects.length;
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [launchId, setLaunchId] = useState(0);
 
-  const go = (dir: number) => setCurrent((c) => (c + dir + count) % count);
+  const go = (dir: number) => {
+    setDirection(dir);
+    setLaunchId((id) => id + 1);
+    setCurrent((c) => (c + dir + count) % count);
+  };
 
   return (
     <section
@@ -146,8 +152,12 @@ export default function ProjectsSection() {
           <p className="text-lg text-violet-300/80">Drag, swipe or use the arrows to explore ✨</p>
         </motion.div>
 
-        {/* 3D coverflow stage */}
-        <div className="relative" style={{ perspective: '1400px' }}>
+        {/* Wraps the 3D stage + the rocket overlay. The rocket is kept OUTSIDE the
+            perspective div below: Chromium paints preserve-3d descendants in their
+            own compositing layer, which can sit above a 2D sibling regardless of
+            z-index — so the rocket needs to not share that 3D containing block. */}
+        <div className="relative">
+          <div className="relative" style={{ perspective: '1400px' }}>
           <motion.div
             className="relative h-[460px] sm:h-[480px] flex items-center justify-center"
             style={{ transformStyle: 'preserve-3d' }}
@@ -203,6 +213,48 @@ export default function ProjectsSection() {
           >
             <FaChevronRight />
           </button>
+          </div>
+
+          {/* rocket-launch transition effect when switching projects. Deliberately a
+              sibling of the perspective div above, not a descendant — see the note
+              on the outer wrapper. Flight uses vw units (relative to the real
+              viewport); the outer <section> still clips the far edges. */}
+          <div className="pointer-events-none absolute inset-0 z-30">
+            <div style={{ position: 'absolute', top: 100, left: 100, width: 60, height: 60, background: 'red', zIndex: 999 }} data-debug-marker="true" />
+            <AnimatePresence>
+              {launchId > 0 && (
+                <motion.div
+                  key={launchId}
+                  data-rocket="true"
+                  // rotate is fixed for the whole flight (held at its initial value since
+                  // it's omitted from `animate`) — the nose always points along the travel arc.
+                  className="absolute top-1/2 left-1/2"
+                  initial={{
+                    x: direction > 0 ? '-42vw' : '42vw',
+                    y: 40,
+                    opacity: 0,
+                    rotate: direction > 0 ? 45 : -45,
+                  }}
+                  animate={{
+                    x: direction > 0 ? '42vw' : '-42vw',
+                    y: -40,
+                    opacity: [0, 1, 1, 0],
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.65,
+                    ease: 'easeIn',
+                    opacity: { duration: 0.65, times: [0, 0.15, 0.8, 1] },
+                  }}
+                >
+                  {/* trail sits "below" the nose in local space, so it stays behind
+                      the rocket however the wrapper above is rotated */}
+                  <div className="absolute right-full top-1/2 h-1 w-[90px] -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent via-cyan-300/70 to-fuchsia-400/80 blur-[1px]" />
+                  <FaRocket className="text-3xl sm:text-4xl text-cyan-300 drop-shadow-[0_0_14px_rgba(34,211,238,0.85)]" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* dots */}
