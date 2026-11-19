@@ -220,20 +220,20 @@ export default function ProjectsSection() {
               on the outer wrapper. Flight uses vw units (relative to the real
               viewport); the outer <section> still clips the far edges. */}
           <div className="pointer-events-none absolute inset-0 z-30">
-            <div style={{ position: 'absolute', top: 100, left: 100, width: 60, height: 60, background: 'red', zIndex: 999 }} data-debug-marker="true" />
             <AnimatePresence>
               {launchId > 0 && (
                 <motion.div
                   key={launchId}
                   data-rocket="true"
-                  // rotate is fixed for the whole flight (held at its initial value since
-                  // it's omitted from `animate`) — the nose always points along the travel arc.
+                  // FaRocket's artwork already points up-and-right by default — for
+                  // forward travel (also up-and-right) it needs no rotation at all.
+                  // For reverse travel we mirror horizontally (not rotate), which
+                  // turns "up-right" into "up-left" and flips the trail along with it.
                   className="absolute top-1/2 left-1/2"
                   initial={{
                     x: direction > 0 ? '-42vw' : '42vw',
                     y: 40,
                     opacity: 0,
-                    rotate: direction > 0 ? 45 : -45,
                   }}
                   animate={{
                     x: direction > 0 ? '42vw' : '-42vw',
@@ -247,10 +247,15 @@ export default function ProjectsSection() {
                     opacity: { duration: 0.65, times: [0, 0.15, 0.8, 1] },
                   }}
                 >
-                  {/* trail sits "below" the nose in local space, so it stays behind
-                      the rocket however the wrapper above is rotated */}
-                  <div className="absolute right-full top-1/2 h-1 w-[90px] -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent via-cyan-300/70 to-fuchsia-400/80 blur-[1px]" />
-                  <FaRocket className="text-3xl sm:text-4xl text-cyan-300 drop-shadow-[0_0_14px_rgba(34,211,238,0.85)]" />
+                  <div className="relative" style={{ transform: direction < 0 ? 'scaleX(-1)' : undefined }}>
+                    {/* exhaust trail, fixed at the angle opposite the icon's default
+                        up-right-pointing nose (135deg clockwise from due east) */}
+                    <div
+                      className="absolute top-1/2 left-1/2 h-1 w-[70px] rounded-full bg-gradient-to-r from-cyan-300/80 to-transparent blur-[1px]"
+                      style={{ transformOrigin: 'left center', transform: 'translateY(-50%) rotate(135deg)' }}
+                    />
+                    <FaRocket className="relative text-3xl sm:text-4xl text-cyan-300 drop-shadow-[0_0_14px_rgba(34,211,238,0.85)]" />
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
